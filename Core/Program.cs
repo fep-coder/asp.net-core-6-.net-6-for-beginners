@@ -3,7 +3,7 @@ using Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IResponseFormatter, HtmlResponseFormatter>();
+builder.Services.AddTransient<IResponseFormatter, GuidService>();
 
 var app = builder.Build();
 
@@ -20,6 +20,7 @@ app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatt
 });
 
 app.UseMiddleware<CustomMiddleware>();
+app.UseMiddleware<CustomMiddleware2>();
 
 app.MapGet("/endpoint", CustomEndpoint.Endpoint);
 
