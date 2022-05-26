@@ -1,3 +1,4 @@
+using Core;
 using Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ app.MapGet("/formatter2", async (HttpContext context, IResponseFormatter formatt
 {
         await formatter.Format(context, "Formatter 2");
 });
+
+app.UseMiddleware<CustomMiddleware>();
 
 app.MapGet("/", () => "Hello World!");
 
