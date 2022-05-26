@@ -1,14 +1,21 @@
 using Core;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-((IApplicationBuilder)app).Map("/branch", branch =>
+builder.Services.Configure<FruitOptions>(options =>
 {
-        branch.Run(new Middleware().Invoke);
+        options.Name = "watermelon";
 });
 
-app.UseMiddleware<Middleware>();
+var app = builder.Build();
+
+//app.MapGet("/fruit", async (HttpContext context, IOptions<FruitOptions> FruitOptions) =>
+//{
+//        FruitOptions options = FruitOptions.Value;
+//        await context.Response.WriteAsync($"{options.Name}, {options.Color}");
+//});
+
+app.UseMiddleware<FruitMiddleware>();
 
 app.MapGet("/", () => "Hello World!");
 
