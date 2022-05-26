@@ -5,10 +5,7 @@ var app = builder.Build();
 
 ((IApplicationBuilder)app).Map("/branch", branch =>
 {
-        branch.Use(async (HttpContext context, Func<Task> next) =>
-        {
-                await context.Response.WriteAsync("Branch middleware");
-        });
+        branch.Run(new Middleware().Invoke);
 });
 
 app.UseMiddleware<Middleware>();
