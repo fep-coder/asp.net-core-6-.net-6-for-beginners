@@ -3,16 +3,12 @@ using Core;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.Use(async (context, next) =>
+((IApplicationBuilder)app).Map("/branch", branch =>
 {
-        if (context.Request.Path == "/short")
+        branch.Use(async (HttpContext context, Func<Task> next) =>
         {
-                await context.Response.WriteAsync("Request short-circuited");
-        }
-        else
-        {
-                await next();
-        }
+                await context.Response.WriteAsync("Branch middleware");
+        });
 });
 
 app.UseMiddleware<Middleware>();
