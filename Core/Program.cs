@@ -1,34 +1,31 @@
-using Core;
-
 var builder = WebApplication.CreateBuilder(args);
-
-var servicesConfig = builder.Configuration;
-builder.Services.Configure<FruitOptions>(servicesConfig.GetSection("Fruit"));
 
 var app = builder.Build();
 
-app.Logger.LogDebug("Pipeline configuration starting");
 
-app.MapGet("/config", async (HttpContext context, IConfiguration config) =>
+app.MapGet("/cookie", async context =>
 {
-        string defaultDebug = config["Logging:LogLevel:Default"];
-        await context.Response.WriteAsync(defaultDebug);
+        int counter = int.Parse(context.Request.Cookies["counter"] ?? "0") + 1;
 
-        string environment = config["ASPNETCORE_ENVIRONMENT"];
-        await context.Response.WriteAsync(environment);
+        context.Response.Cookies.Append(
+                "counter",
+                counter.ToString(),
+                new CookieOptions
+                {
+                        MaxAge = TimeSpan.FromMinutes(30)
+                }
+        );
 
-        if (app.Environment.IsDevelopment())
-        {
-                await context.Response.WriteAsync("IsDevelopment");
-        }
+        await context.Response.WriteAsync($"Cookie: {counter}");
 });
 
-app.UseMiddleware<FruitMiddleware>();
+app.MapGet("/clear", context =>
+{
+        context.Response.Cookies.Delete("counter");
+        context.Response.Redirect("/");
+        return Task.CompletedTask;
+});
 
 app.MapGet("/", () => "Hello World!");
-
-app.Logger.LogDebug("Pipeline configuration complete");
-
-app.UseStaticFiles();
 
 app.Run();
