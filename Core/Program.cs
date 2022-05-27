@@ -1,29 +1,26 @@
 var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+builder.Services.AddDistributedMemoryCache();
 
-
-app.MapGet("/cookie", async context =>
+builder.Services.AddSession(options =>
 {
-        int counter = int.Parse(context.Request.Cookies["counter"] ?? "0") + 1;
-
-        context.Response.Cookies.Append(
-                "counter",
-                counter.ToString(),
-                new CookieOptions
-                {
-                        MaxAge = TimeSpan.FromMinutes(30)
-                }
-        );
-
-        await context.Response.WriteAsync($"Cookie: {counter}");
+        options.IdleTimeout = TimeSpan.FromMinutes(30);
+        options.Cookie.IsEssential = true;
 });
 
-app.MapGet("/clear", context =>
+var app = builder.Build();
+
+app.UseSession();
+
+app.MapGet("/session", async context =>
 {
-        context.Response.Cookies.Delete("counter");
-        context.Response.Redirect("/");
-        return Task.CompletedTask;
+        int counter = (context.Session.GetInt32("counter") ?? 0) + 1;
+
+        context.Session.SetInt32("counter", counter);
+
+        await context.Session.CommitAsync();
+
+        await context.Response.WriteAsync($"Session: {counter}");
 });
 
 app.MapGet("/", () => "Hello World!");
