@@ -29,4 +29,6 @@ app.MapGet("/", () => "Hello World!");
 
 app.Logger.LogDebug("Pipeline configuration complete");
 
+app.UseStaticFiles();
+
 app.Run();
