@@ -7,6 +7,8 @@ builder.Services.Configure<FruitOptions>(servicesConfig.GetSection("Fruit"));
 
 var app = builder.Build();
 
+app.Logger.LogDebug("Pipeline configuration starting");
+
 app.MapGet("/config", async (HttpContext context, IConfiguration config) =>
 {
         string defaultDebug = config["Logging:LogLevel:Default"];
@@ -24,5 +26,7 @@ app.MapGet("/config", async (HttpContext context, IConfiguration config) =>
 app.UseMiddleware<FruitMiddleware>();
 
 app.MapGet("/", () => "Hello World!");
+
+app.Logger.LogDebug("Pipeline configuration complete");
 
 app.Run();
