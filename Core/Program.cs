@@ -1,24 +1,14 @@
+using Core.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHsts(options =>
+builder.Services.AddDbContext<DataContext>(options =>
 {
-        options.MaxAge = TimeSpan.FromDays(1);
-        options.IncludeSubDomains = true;
+        options.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnection"]);
 });
 
 var app = builder.Build();
-
-app.MapGet("/https", async context =>
-{
-        await context.Response.WriteAsync($"HTTPS Request: {context.Request.IsHttps}");
-});
-
-app.UseHttpsRedirection();
-
-if (app.Environment.IsProduction())
-{
-        app.UseHsts();
-}
 
 app.MapGet("/", () => "Hello World!");
 
