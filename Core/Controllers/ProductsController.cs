@@ -28,5 +28,13 @@ namespace Core.Controllers
                         logger.LogDebug("------------------------------- GetProduct Action Invoked -----------------------------");
                         return _context.Products.Find(id);
                 }
+
+                // api/products
+                [HttpPost]
+                public void SaveProduct([FromBody] Product product)
+                {
+                        _context.Products.Add(product);
+                        _context.SaveChanges();
+                }
         }
 }
