@@ -23,10 +23,16 @@ namespace Core.Controllers
 
                 // api/products/1
                 [HttpGet("{id}")]
-                public async Task<Product> GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
+                public async Task<IActionResult> GetProduct(long id)
                 {
-                        logger.LogDebug("------------------------------- GetProduct Action Invoked -----------------------------");
-                        return await _context.Products.FindAsync(id);
+                        Product product = await _context.Products.FindAsync(id);
+
+                        if (product == null)
+                        {
+                                return NotFound();
+                        }
+                        return Ok(product);
+
                 }
 
                 // api/products
