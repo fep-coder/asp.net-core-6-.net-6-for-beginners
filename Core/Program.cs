@@ -14,7 +14,8 @@ var app = builder.Build();
 
 app.MapControllers();
 
-app.MapControllerRoute("Default", "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute("Default", "{controller=Home}/{action=Index}/{id?}");
+app.MapDefaultControllerRoute();
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedDatabase(context);
