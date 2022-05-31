@@ -60,5 +60,19 @@ namespace Core.Controllers
                         _context.Products.Remove(new Product { Id = id });
                         _context.SaveChanges();
                 }
+
+                // api/products/redirect
+                [HttpGet("redirect")]
+                public IActionResult Redirect()
+                {
+                        //return Redirect("/api/products/1");
+                        //return RedirectToAction(nameof(GetProduct), new { Id = 1 });
+                        return RedirectToRoute(new
+                        {
+                                controller = "Products",
+                                action = "GetProduct",
+                                Id = 1
+                        });
+                }
         }
 }
