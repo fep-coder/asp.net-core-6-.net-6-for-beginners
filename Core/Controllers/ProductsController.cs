@@ -37,10 +37,12 @@ namespace Core.Controllers
 
                 // api/products
                 [HttpPost]
-                public async Task SaveProduct([FromBody] Product product)
+                public async Task<IActionResult> SaveProduct([FromBody] Product product)
                 {
                         await _context.Products.AddAsync(product);
                         await _context.SaveChangesAsync();
+
+                        return Ok(product);
                 }
 
                 // api/products
