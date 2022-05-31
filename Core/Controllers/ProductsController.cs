@@ -39,10 +39,16 @@ namespace Core.Controllers
                 [HttpPost]
                 public async Task<IActionResult> SaveProduct([FromBody] Product product)
                 {
-                        await _context.Products.AddAsync(product);
-                        await _context.SaveChangesAsync();
+                        if (ModelState.IsValid)
+                        {
+                                await _context.Products.AddAsync(product);
+                                await _context.SaveChangesAsync();
 
-                        return Ok(product);
+                                return Ok(product);
+                        }
+
+                        return BadRequest(ModelState);
+
                 }
 
                 // api/products
