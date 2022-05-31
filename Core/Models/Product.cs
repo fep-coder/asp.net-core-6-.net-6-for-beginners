@@ -16,7 +16,6 @@ namespace Core.Models
                 [Required]
                 [Range(1, long.MaxValue)]
                 public long CategoryId { get; set; }
-                //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
                 public Category Category { get; set; }
         }
 }
