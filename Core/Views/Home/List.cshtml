@@ -3,6 +3,7 @@
 @{
         decimal average = Model.Average(p => p.Price);
         ViewBag.Title = "List";
+        ViewData["fruit"] = "apples";
 }
 
 <div class="col-12 m-2">
@@ -18,7 +19,7 @@
                 <tbody>
                         @foreach (Product p in Model)
                         {
-                                <partial name="_RowPartial" model="p" />
+                                <partial name="_RowPartial" model="p" view-data="ViewData" />
                         }
                 </tbody>
         </table>

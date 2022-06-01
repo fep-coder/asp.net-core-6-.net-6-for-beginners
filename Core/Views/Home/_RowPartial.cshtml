@@ -1,6 +1,18 @@
 ﻿@model Product
 
 <tr>
-        <td>@Model.Name</td>
+        @*<td>@Model.Name</td>*@
+        <partial name="_CellPartial" for="Name" />
         <td>@Model.Price</td>
+
+        <td>
+                @if (ViewData["fruit"] == "apples")
+                {
+                        @:apples
+                }
+                else
+                {
+                        @:not apples
+                }
+        </td>
 </tr>
