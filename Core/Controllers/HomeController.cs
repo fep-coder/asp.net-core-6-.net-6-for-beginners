@@ -35,5 +35,10 @@ namespace Core.Controllers
                         TempData["value"] = "TempData value";
                         return RedirectToAction("Index", new { id = 1 });
                 }
+
+                public IActionResult Html()
+                {
+                        return View((object)"This is a <h3><i>string</i></h3>");
+                }
         }
 }

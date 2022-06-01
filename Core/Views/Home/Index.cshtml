@@ -73,6 +73,12 @@
         }
 </div>
 
+@section JsonEncoding {
+        <div class="bg-info text-white m-2 p-2">
+                @Json.Serialize(Model)
+        </div>
+}
+
 @section Footer {
         <div class="bg-success text-white">
                 Footer information
