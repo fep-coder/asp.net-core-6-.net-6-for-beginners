@@ -1,75 +1,68 @@
 ﻿@model Product
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <title></title>
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-</head>
-<body>
-        <div class="container">
-                <div class="row m-2">
-                        <h2 class="text-white bg-info p-2">Product</h2>
+@{
+        Layout = "_Layout";
+        ViewBag.Title = "Home";
+}
 
-                        <table class="table table-striped table-bordered">
-                                <tbody>
-                                        <tr>
-                                                <th>Name</th>
-                                                <td>@Model.Name</td>
-                                        </tr>
-                                        <tr>
-                                                <th>Price</th>
-                                                <td>@Model.Price.ToString("c")</td>
-                                        </tr>
-                                        <tr>
-                                                <th>Price</th>
-                                                <td>@(Model.Price * 2)</td>
-                                        </tr>
+<div class="col-12 m-2">
+        <h2 class="text-white bg-info p-2">Product</h2>
 
-                                        @if (Model.CategoryId == 1)
-                                        {
-                                                <tr>
-                                                        <th>Category</th>
-                                                        <td>Fruits</td>
-                                                </tr>
-                                        } 
-                                        else
-                                        {
-                                                <tr>
-                                                        <th>Category</th>
-                                                        <td>Shirts</td>
-                                                </tr>
-                                        }
+        <table class="table table-striped table-bordered">
+                <tbody>
+                        <tr>
+                                <th>Name</th>
+                                <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                                <th>Price</th>
+                                <td>@Model.Price.ToString("c")</td>
+                        </tr>
+                        <tr>
+                                <th>Price</th>
+                                <td>@(Model.Price * 2)</td>
+                        </tr>
 
-                                        <tr>
-                                                <th>Fruit type</th>
-                                                <td>
-                                                        @switch (Model.Name)
-                                                        {
-                                                                case "Apples":
-                                                                        @: It's apples
-                                                                        break;
-                                                                case "Lemons":
-                                                                        @: It's lemons
-                                                                        break;
-                                                                default:
-                                                                @Model.Name
-                                                                break;
-                                                        }
-                                                </td>
-                                        </tr>
-                                </tbody>
-                        </table>
-                </div>
-                <div class="row m-2">
-                        @if (TempData["value"] != null)
+                        @if (Model.CategoryId == 1)
                         {
-                        <div class="bg-info text-white p-2">
-                                @TempData["value"]
-                        </div>
+                                <tr>
+                                        <th>Category</th>
+                                        <td>Fruits</td>
+                                </tr>
                         }
+                        else
+                        {
+                                <tr>
+                                        <th>Category</th>
+                                        <td>Shirts</td>
+                                </tr>
+                        }
+
+                        <tr>
+                                <th>Fruit type</th>
+                                <td>
+                                        @switch (Model.Name)
+                                        {
+                                                case "Apples":
+                                                        @: It's apples
+                                                        break;
+                                                case "Lemons":
+                                                        @: It's lemons
+                                                        break;
+                                                default:
+                                                        @Model.Name
+                                                        break;
+                                        }
+                                </td>
+                        </tr>
+                </tbody>
+        </table>
+</div>
+<div class="col-12 m-2">
+        @if (TempData["value"] != null)
+        {
+                <div class="bg-info text-white p-2">
+                        @TempData["value"]
                 </div>
-        </div>
-</body>
-</html>
+        }
+</div>
