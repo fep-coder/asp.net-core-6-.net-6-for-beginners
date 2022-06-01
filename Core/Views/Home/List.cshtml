@@ -18,16 +18,7 @@
                 <tbody>
                         @foreach (Product p in Model)
                         {
-                                <tr>
-                                        <td>@p.Name</td>
-                                        <td>@p.Price</td>
-                                        <td>
-                                                @((p.Price / average * 100).ToString("F1")) % of average
-                                        </td>
-                                        <td>
-                                                @((p.Price / ViewBag.AveragePrice * 100).ToString("F1")) % of average
-                                        </td>
-                                </tr>
+                                <partial name="_RowPartial" model="p" />
                         }
                 </tbody>
         </table>
