@@ -1,5 +1,6 @@
 ﻿using Core.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Controllers
 {
@@ -22,9 +23,11 @@ namespace Core.Controllers
                         return View("/Views/Shared/Common.cshtml");
                 }
 
-                public IActionResult List()
+                public async Task<IActionResult> List()
                 {
-                        return View(_context.Products);
+                        ViewBag.AveragePrice = await _context.Products.AverageAsync(p => p.Price);
+
+                        return View(await _context.Products.ToListAsync());
                 }
         }
 }

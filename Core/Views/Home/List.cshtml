@@ -32,6 +32,9 @@
                                                         <td>
                                                                 @((p.Price / average * 100).ToString("F1")) % of average
                                                         </td>
+                                                        <td>
+                                                                @((p.Price / ViewBag.AveragePrice * 100).ToString("F1")) % of average
+                                                        </td>
                                                 </tr>
                                         }
                                 </tbody>
