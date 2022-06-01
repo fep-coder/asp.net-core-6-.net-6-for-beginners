@@ -17,12 +17,47 @@
                                         <tr>
                                                 <th>Name</th>
                                                 <td>@Model.Name</td>
-                                                <td>Category ID</td>
                                         </tr>
                                         <tr>
                                                 <th>Price</th>
                                                 <td>@Model.Price.ToString("c")</td>
-                                                <td>@Model.CategoryId</td>
+                                        </tr>
+                                        <tr>
+                                                <th>Price</th>
+                                                <td>@(Model.Price * 2)</td>
+                                        </tr>
+
+                                        @if (Model.CategoryId == 1)
+                                        {
+                                                <tr>
+                                                        <th>Category</th>
+                                                        <td>Fruits</td>
+                                                </tr>
+                                        } 
+                                        else
+                                        {
+                                                <tr>
+                                                        <th>Category</th>
+                                                        <td>Shirts</td>
+                                                </tr>
+                                        }
+
+                                        <tr>
+                                                <th>Fruit type</th>
+                                                <td>
+                                                        @switch (Model.Name)
+                                                        {
+                                                                case "Apples":
+                                                                        @: It's apples
+                                                                        break;
+                                                                case "Lemons":
+                                                                        @: It's lemons
+                                                                        break;
+                                                                default:
+                                                                @Model.Name
+                                                                break;
+                                                        }
+                                                </td>
                                         </tr>
                                 </tbody>
                         </table>
