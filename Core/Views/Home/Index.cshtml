@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model Product
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
         <title></title>
@@ -15,10 +17,12 @@
                                         <tr>
                                                 <th>Name</th>
                                                 <td>@Model.Name</td>
+                                                <td>Category ID</td>
                                         </tr>
                                         <tr>
                                                 <th>Price</th>
                                                 <td>@Model.Price.ToString("c")</td>
+                                                <td>@Model.CategoryId</td>
                                         </tr>
                                 </tbody>
                         </table>
