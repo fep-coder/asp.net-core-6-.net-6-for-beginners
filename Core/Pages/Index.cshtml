@@ -25,6 +25,12 @@
                 {
                         Product = await _context.Products.FindAsync(id);
 
+                        if (Product == null)
+                        {
+                                //return NotFound();
+                                return RedirectToPage("NotFound");
+                        }
+
                         return Page();
                 }
         }
