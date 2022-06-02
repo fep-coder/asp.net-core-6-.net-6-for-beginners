@@ -10,15 +10,11 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddRazorPages();
-
 var app = builder.Build();
 
 app.MapControllers();
 
 app.MapDefaultControllerRoute();
-
-app.MapRazorPages();
 
 app.UseStaticFiles();
 
