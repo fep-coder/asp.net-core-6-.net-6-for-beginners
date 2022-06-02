@@ -1,6 +1,29 @@
 ﻿@page
-@model Core.Pages.IndexModel
+@using Core.Infrastructure
+@using Core.Models
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@model IndexModel
 @{
 }
 
 <h1>Razor Index</h1>
+
+<p>@Model.Product.Name</p>
+
+@functions {
+        public class IndexModel : PageModel
+        {
+                private DataContext _context;
+                public Product Product { get; set; }
+
+                public IndexModel(DataContext context)
+                {
+                        _context = context;
+                }
+
+                public async Task OnGetAsync(long id = 1)
+                {
+                        Product = await _context.Products.FindAsync(id);
+                }
+        }
+}
