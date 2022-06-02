@@ -7,6 +7,9 @@
 <div class="col-12 m-2">
         <h2 class="text-white bg-info p-2">Product</h2>
 
-        <vc:product-listing />
+        @*<vc:product-listing class-name="danger" />*@
+        @*<vc:product-listing  />*@
+
+        @await Component.InvokeAsync("ProductListing", new { className = "danger"})
 
 </div>

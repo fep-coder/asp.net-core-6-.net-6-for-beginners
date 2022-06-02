@@ -1,6 +1,7 @@
 ﻿using Core.Infrastructure;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Components
 {
@@ -15,16 +16,10 @@ namespace Core.Components
                         _context = context;
                 }
 
-                public string Invoke()
+                public IViewComponentResult Invoke(string className = "primary")
                 {
-                        if (RouteData.Values["controller"] != null)
-                        {
-                                return "Controller request";
-                        }
-                        else
-                        {
-                                return "Razor Page request";
-                        }
+                        ViewBag.Class = className;
+                        return View(_context.Products.Include(p => p.Category).ToList());
                 }
         }
 }
