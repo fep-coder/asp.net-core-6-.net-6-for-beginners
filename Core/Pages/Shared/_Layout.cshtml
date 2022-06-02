@@ -10,35 +10,7 @@
         <div class="container">
 
                 <div class="row">
-                        <div class="col-12">
-                                @RenderSection("Header", false)
-                        </div>
-                </div>
-                <div class="row">
                         @RenderBody()
-                </div>
-
-                <div class="row">
-                        <div class="col-12">
-                                @if (IsSectionDefined("SomeSection"))
-                                {
-                                        @RenderSection("SomeSection", false)
-                                }
-                                else
-                                {
-                                        <div class="bg-info text-white p-2 m-2">
-                                                Some section content goes here
-                                        </div>
-                                }
-                        </div>
-                </div>
-
-                @RenderSection("JsonEncoding", false)
-
-                <div class="row">
-                        <div class="col-12">
-                                @RenderSection("Footer", false)
-                        </div>
                 </div>
 
         </div>
