@@ -1,8 +1,6 @@
 ﻿using Core.Infrastructure;
 using Core.Models;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
 
 namespace Core.Components
 {
@@ -17,10 +15,16 @@ namespace Core.Components
                         _context = context;
                 }
 
-                public IViewComponentResult Invoke()
+                public string Invoke()
                 {
-                        //return Content("This is a <h3><i>string</i></h3>");
-                        return new HtmlContentViewComponentResult(new HtmlString("This is a <h3><i>string</i></h3>"));
+                        if (RouteData.Values["controller"] != null)
+                        {
+                                return "Controller request";
+                        }
+                        else
+                        {
+                                return "Razor Page request";
+                        }
                 }
         }
 }
