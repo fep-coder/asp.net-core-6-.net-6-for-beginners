@@ -21,9 +21,11 @@
                         _context = context;
                 }
 
-                public async Task OnGetAsync(long id = 1)
+                public async Task<IActionResult> OnGetAsync(long id = 1)
                 {
                         Product = await _context.Products.FindAsync(id);
+
+                        return Page();
                 }
         }
 }
