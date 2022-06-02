@@ -8,7 +8,7 @@
 
 <h1>Razor Index</h1>
 
-<p>@Model.Product.Name</p>
+<partial name="_ProductPartial" model="Model.Product" />
 
 @functions {
         public class IndexModel : PageModel
