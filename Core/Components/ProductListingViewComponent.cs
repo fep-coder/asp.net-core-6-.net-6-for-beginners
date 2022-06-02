@@ -1,7 +1,8 @@
 ﻿using Core.Infrastructure;
 using Core.Models;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 
 namespace Core.Components
 {
@@ -18,7 +19,8 @@ namespace Core.Components
 
                 public IViewComponentResult Invoke()
                 {
-                        return View(_context.Products.Include(p => p.Category).ToList());
+                        //return Content("This is a <h3><i>string</i></h3>");
+                        return new HtmlContentViewComponentResult(new HtmlString("This is a <h3><i>string</i></h3>"));
                 }
         }
 }
