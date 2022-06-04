@@ -6,7 +6,6 @@ namespace Core.TagHelpers
         [HtmlTargetElement("*", Attributes = "[wrap=true]")]
         public class ContentWrapperTagHelper : TagHelper
         {
-                public string BgColor { get; set; } = "danger";
                 public string WrapperString { get; set; }
 
                 public override void Process(TagHelperContext context, TagHelperOutput output)
