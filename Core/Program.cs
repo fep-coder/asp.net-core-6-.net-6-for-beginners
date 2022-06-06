@@ -18,6 +18,8 @@ app.MapDefaultControllerRoute();
 
 app.UseStaticFiles();
 
+app.UseAuthorization();
+
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedDatabase(context);
 
