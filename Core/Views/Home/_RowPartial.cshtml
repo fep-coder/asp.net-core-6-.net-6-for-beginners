@@ -1,18 +1,11 @@
 ﻿@model Product
 
 <tr>
-        @*<td>@Model.Name</td>*@
         <partial name="_CellPartial" for="Name" />
         <td>@Model.Price</td>
 
         <td>
-                @if (ViewData["fruit"] == "apples")
-                {
-                        @:apples
-                }
-                else
-                {
-                        @:not apples
-                }
+                <a asp-controller="Home" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-sm btn-info text-white">Details</a>
         </td>
+
 </tr>
