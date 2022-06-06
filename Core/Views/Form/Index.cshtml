@@ -8,8 +8,18 @@
 
 <form asp-action="submitform" method="post" id="htmlform">
         <div class="form-group">
+                <label>Id</label>
+                <input  class="form-control"  asp-for="Id" />
+        </div>
+        
+        <div class="form-group">
                 <label>Name</label>
-                <input  class="form-control"  name="Name" value="@Model.Name" />
+                <input  class="form-control"  asp-for="Name" value="@Model.Name" />
+        </div>
+
+        <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" asp-for="CategoryId" asp-items="@ViewBag.Categories"></select>
         </div>
 
         <button class="btn btn-primary mt-2">Submit</button>

@@ -1,8 +1,11 @@
 ﻿using Core.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Controllers
 {
+        [AutoValidateAntiforgeryToken]
         public class FormController : Controller
         {
                 private DataContext _context;
@@ -14,7 +17,8 @@ namespace Core.Controllers
 
                 public async Task<IActionResult> Index(long id = 1)
                 {
-                        return View(await _context.Products.FindAsync(id));
+                        ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name");
+                        return View(await _context.Products.Include(p => p.Category).FirstAsync(p => p.Id == id));
                 }
 
                 [HttpPost]
