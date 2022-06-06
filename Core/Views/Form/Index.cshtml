@@ -1,0 +1,17 @@
+﻿@model Product
+
+@{
+        ViewBag.Title = "Form";
+}
+
+<h2 class="bg-primary text-white text-center p-2">Form</h2>
+
+<form action="/form/submitform" method="post">
+        <div class="form-group">
+                <label>Name</label>
+                <input  class="form-control"  name="Name" value="@Model.Name" />
+        </div>
+
+        <button class="btn btn-primary mt-2">Submit</button>
+</form>
+

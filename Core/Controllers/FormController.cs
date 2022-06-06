@@ -14,7 +14,7 @@ namespace Core.Controllers
 
                 public async Task<IActionResult> Index(long id = 1)
                 {
-                        return View(await _context.Products.FindAsync(id);
+                        return View(await _context.Products.FindAsync(id));
                 }
 
                 [HttpPost]
