@@ -15,7 +15,6 @@ namespace Core.Controllers
                         _context = context;
                 }
 
-                //[ValidateAntiForgeryToken]
                 public async Task<IActionResult> Index(long id = 1)
                 {
                         ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name");
@@ -23,7 +22,6 @@ namespace Core.Controllers
                 }
 
                 [HttpPost]
-                //[IgnoreAntiforgeryToken]
                 public IActionResult SubmitForm()
                 {
                         foreach (string key in Request.Form.Keys)
