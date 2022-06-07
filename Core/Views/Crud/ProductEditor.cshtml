@@ -1,0 +1,45 @@
+﻿@model ProductViewModel
+
+@{
+        ViewData["Title"] = "Product Editor";
+}
+
+<h1>Product Editor</h1>
+
+<h5 class="bg-@Model.Theme text-white text-center p-2">@Model.Action</h5>
+
+<form asp-action="@Model.Action" method=post>
+
+        <div class="form-group">
+                <label>Id</label>
+                <input class="form-control" asp-for="Product.Id" readonly />
+        </div>
+
+        <div class="form-group">
+                <label>Name</label>
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+                <input class="form-control" asp-for="Product.Name" readonly="@Model.ReadOnly" />
+        </div>
+
+        <div class="form-group">
+                <label>Price</label>
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+                <input class="form-control" asp-for="Product.Price" readonly="@Model.ReadOnly" />
+        </div>
+
+        <div class="form-group">
+                <label>Category</label>
+                <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                <select class="form-control"
+                        asp-for="Product.CategoryId" disabled="@Model.ReadOnly"
+                        asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
+                        <option value="" disabled selected>Choose a category</option>
+                </select>
+        </div>
+
+        @if (Model.ShowAction == true)
+        {
+                <button class="btn btn-@Model.Theme mt-2">@Model.Action</button>
+        }
+
+</form>

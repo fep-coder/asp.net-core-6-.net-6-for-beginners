@@ -7,7 +7,6 @@ namespace Core.Models
         {
                 public long Id { get; set; }
                 [Required]
-                //[BindNever]
                 public string Name { get; set; }
                 [Required]
                 [Range(0.01, double.MaxValue)]
