@@ -55,5 +55,19 @@ namespace Core.Controllers
 
                         return View("ProductEditor", ViewModelFactory.Create(new Product(), _context.Categories));
                 }
+
+                [HttpPost]
+                public async Task<IActionResult> Edit([FromForm] Product product)
+                {
+                        if (ModelState.IsValid)
+                        {
+                                _context.Products.Update(product);
+                                await _context.SaveChangesAsync();
+
+                                return RedirectToAction("Index");
+                        }
+
+                        return View("ProductEditor", ViewModelFactory.Edit(product, _context.Categories));
+                }
         }
 }
