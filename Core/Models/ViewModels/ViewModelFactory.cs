@@ -23,5 +23,16 @@
                                 Categories = categories
                         };
                 }
+
+                public static ProductViewModel Edit(Product product, IEnumerable<Category> categories)
+                {
+                        return new ProductViewModel
+                        {
+                                Product = product,
+                                Categories = categories,
+                                Theme = "warning",
+                                Action = "Edit"
+                        };
+                }
         }
 }
