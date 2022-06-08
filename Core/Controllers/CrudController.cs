@@ -69,5 +69,13 @@ namespace Core.Controllers
 
                         return View("ProductEditor", ViewModelFactory.Edit(product, _context.Categories));
                 }
+
+                public async Task<IActionResult> Delete(Product product)
+                {
+                        _context.Products.Remove(product);
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction("Index");
+                }
         }
 }
