@@ -23,6 +23,11 @@ app.MapControllers();
 
 app.MapDefaultControllerRoute();
 
+app.MapControllerRoute(
+        name: "Areas",
+        pattern: "{area:exists}/{controller=Users}/{action=Index}/{id?}"
+);
+
 app.UseStaticFiles();
 
 app.UseAuthorization();
