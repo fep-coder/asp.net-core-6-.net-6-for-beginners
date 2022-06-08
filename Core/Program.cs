@@ -1,4 +1,5 @@
 using Core.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,12 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
         options.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnection"]);
 });
+
+builder.Services.AddDbContext<IdentityContext>(options =>
+{
+        options.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnection"]);
+});
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
 
