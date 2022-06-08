@@ -25,5 +25,7 @@ namespace Core.Controllers
 
                         return View("ProductEditor", model);
                 }
+
+                public IActionResult Create() => View("ProductEditor", ViewModelFactory.Create(new Product(), _context.Categories));
         }
 }

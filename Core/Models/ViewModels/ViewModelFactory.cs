@@ -14,5 +14,14 @@
                                 Categories = new List<Category> { product.Category }
                         };
                 }
+
+                public static ProductViewModel Create(Product product, IEnumerable<Category> categories)
+                {
+                        return new ProductViewModel
+                        {
+                                Product = product,
+                                Categories = categories
+                        };
+                }
         }
 }
