@@ -82,5 +82,17 @@ namespace Core.Areas.Admin.Controllers
 
                         return View(user);
                 }
+
+                public async Task<IActionResult> Delete(string id)
+                {
+                        IdentityUser user = await _userManager.FindByIdAsync(id);
+
+                        if (user != null)
+                        {
+                                await _userManager.DeleteAsync(user);
+                        }
+
+                        return RedirectToAction("Index");
+                }
         }
 }
