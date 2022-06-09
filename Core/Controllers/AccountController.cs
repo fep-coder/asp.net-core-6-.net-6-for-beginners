@@ -1,4 +1,5 @@
 ﻿using Core.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ namespace Core.Controllers
                         _userManager = userManager;
                 }
 
-                public IActionResult Login(string returnUrl) => View(returnUrl);
+                public IActionResult Login(string returnUrl) => View(new LoginViewModel { ReturnUrl = returnUrl });
 
                 [HttpPost]
                 public async Task<IActionResult> Login(LoginViewModel loginVM)
@@ -54,5 +55,17 @@ namespace Core.Controllers
 
                         return Redirect(returnUrl);
                 }
+
+                [Authorize]
+                public string AllRoles() => "All Roles";
+
+                [Authorize(Roles = "Admin")]
+                public string AdminOnly() => "Admin Only";
+
+                [Authorize(Roles = "Manager")]
+                public string ManagerOnly() => "Manager Only";
+
+                public string AccessDenied() => "Access Denied";
+
         }
 }

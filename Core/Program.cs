@@ -1,4 +1,5 @@
 using Core.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,12 @@ builder.Services.Configure<IdentityOptions>(options =>
         options.Password.RequireDigit = false;
 
         options.User.RequireUniqueEmail = true;
+});
+
+builder.Services.Configure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, options =>
+{
+        options.LoginPath = "/Login2";
+        options.AccessDeniedPath = "/AccessDenied2";
 });
 
 builder.Services.AddControllersWithViews();
