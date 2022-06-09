@@ -7,10 +7,12 @@ namespace Core.Controllers
         public class AccountController : Controller
         {
                 private SignInManager<IdentityUser> _signInManager;
+                private UserManager<IdentityUser> _userManager;
 
-                public AccountController(SignInManager<IdentityUser> signInManager)
+                public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
                 {
                         _signInManager = signInManager;
+                        _userManager = userManager;
                 }
 
                 public IActionResult Login(string returnUrl) => View(returnUrl);
@@ -33,8 +35,24 @@ namespace Core.Controllers
                         return View(loginVM);
                 }
 
-                public IActionResult Details() => View(new AuthDetailsViewModel { Cookie = Request.Cookies[".AspNetCore.Identity.Application"] });
 
-                public async Task Logout() => await _signInManager.SignOutAsync();
+                public async Task<IActionResult> Details()
+                {
+                        if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                                IdentityUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                                return View(new AuthDetailsViewModel { Cookie = Request.Cookies[".AspNetCore.Identity.Application"], User = user });
+                        }
+
+                        return View(new AuthDetailsViewModel());
+                }
+
+                public async Task<RedirectResult> Logout(string returnUrl = "/")
+                {
+                        await _signInManager.SignOutAsync();
+
+                        return Redirect(returnUrl);
+                }
         }
 }
