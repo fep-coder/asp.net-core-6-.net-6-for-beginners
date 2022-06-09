@@ -78,5 +78,14 @@ namespace Core.Areas.Admin.Controllers
 
                         return Redirect(Request.Headers["Referer"].ToString());
                 }
+
+                public async Task<IActionResult> Delete(string id)
+                {
+                        IdentityRole role = await _roleManager.FindByIdAsync(id);
+
+                        await _roleManager.DeleteAsync(role);
+
+                        return RedirectToAction("Index");
+                }
         }
 }
