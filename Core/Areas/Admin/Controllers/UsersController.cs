@@ -50,5 +50,37 @@ namespace Core.Areas.Admin.Controllers
 
                         return View(userEdit);
                 }
+
+                [HttpPost]
+                public async Task<IActionResult> Edit(UserViewModel user)
+                {
+                        if (ModelState.IsValid)
+                        {
+                                IdentityUser identityUser = await _userManager.FindByIdAsync(user.Id);
+                                identityUser.UserName = user.UserName;
+                                identityUser.Email = user.Email;
+
+                                IdentityResult result = await _userManager.UpdateAsync(identityUser);
+
+                                if (result.Succeeded && !String.IsNullOrEmpty(user.Password))
+                                {
+                                        await _userManager.RemovePasswordAsync(identityUser);
+                                        result = await _userManager.AddPasswordAsync(identityUser, user.Password);
+                                }
+
+                                if (result.Succeeded)
+                                {
+                                        return RedirectToAction("Index");
+                                }
+
+                                foreach (IdentityError error in result.Errors)
+                                {
+                                        ModelState.AddModelError("", error.Description);
+                                }
+
+                        }
+
+                        return View(user);
+                }
         }
 }
