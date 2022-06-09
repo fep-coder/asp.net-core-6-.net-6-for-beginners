@@ -58,5 +58,25 @@ namespace Core.Areas.Admin.Controllers
                                 Members = members
                         });
                 }
+
+                [HttpPost]
+                public async Task<IActionResult> Edit(RoleViewModel roleVM)
+                {
+                        IdentityResult result;
+
+                        foreach (string id in roleVM.AddIds ?? Array.Empty<string>())
+                        {
+                                IdentityUser user = await _userManager.FindByIdAsync(id);
+                                result = await _userManager.AddToRoleAsync(user, roleVM.RoleName);
+                        }
+
+                        foreach (string id in roleVM.DeleteIds ?? new string[] { })
+                        {
+                                IdentityUser user = await _userManager.FindByIdAsync(id);
+                                result = await _userManager.RemoveFromRoleAsync(user, roleVM.RoleName);
+                        }
+
+                        return Redirect(Request.Headers["Referer"].ToString());
+                }
         }
 }
