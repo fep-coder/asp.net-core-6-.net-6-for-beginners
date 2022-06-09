@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +40,15 @@ namespace Core.Areas.Admin.Controllers
                         }
 
                         return View(user);
+                }
+
+                public async Task<IActionResult> Edit(string id)
+                {
+                        IdentityUser user = await _userManager.FindByIdAsync(id);
+
+                        UserViewModel userEdit = new(user);
+
+                        return View(userEdit);
                 }
         }
 }

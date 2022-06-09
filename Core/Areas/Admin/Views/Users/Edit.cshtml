@@ -1,37 +1,39 @@
-﻿@model User
+﻿@model UserViewModel
 
 @{
-        ViewData["Title"] = "Create";
+        ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <hr />
 <div class="row">
         <div class="col-12">
-                <form asp-area="Admin" asp-action="Create">
+                <form asp-area="Admin" asp-action="Edit">
                         <div asp-validation-summary="All" class="text-danger"></div>
 
                         <div class="form-group">
                                 <label asp-for="UserName" class="control-label"></label>
-                                <input asp-for="UserName" class="form-control" />
+                                <input asp-for="UserName" class="form-control" value="@Model.UserName" />
                                 <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                                 <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control" />
+                                <input asp-for="Email" class="form-control" value="@Model.Email" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                                 <label asp-for="Password" class="control-label"></label>
-                                <input asp-for="Password" class="form-control" />
+                                <input asp-for="Password" class="form-control" value="@Model.Password" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
+                        <input type="hidden" value="@Model.Id" name="Id" />
+
                         <div class="form-group">
-                                <button class="btn btn-primary mt-2">Register</button>
+                                <button class="btn btn-primary mt-2">Edit</button>
                         </div>
                 </form>
         </div>
