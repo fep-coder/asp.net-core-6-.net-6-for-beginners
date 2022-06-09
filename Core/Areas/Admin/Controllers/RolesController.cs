@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Core.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -41,6 +42,21 @@ namespace Core.Areas.Admin.Controllers
                         }
 
                         return View();
+                }
+
+                public async Task<IActionResult> Edit(string id)
+                {
+                        IdentityRole role = await _roleManager.FindByIdAsync(id);
+
+                        IEnumerable<IdentityUser> members = await _userManager.GetUsersInRoleAsync(role.Name);
+                        IEnumerable<IdentityUser> nonMembers = _userManager.Users.ToList().Except(members);
+
+                        return View(new RoleViewModel
+                        {
+                                Role = role,
+                                NonMembers = nonMembers,
+                                Members = members
+                        });
                 }
         }
 }
