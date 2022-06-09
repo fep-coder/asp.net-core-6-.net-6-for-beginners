@@ -40,6 +40,7 @@ app.MapDefaultControllerRoute();
 
 app.UseStaticFiles();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
