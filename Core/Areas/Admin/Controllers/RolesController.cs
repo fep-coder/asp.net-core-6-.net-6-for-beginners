@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.Areas.Admin.Controllers
 {
@@ -16,5 +17,30 @@ namespace Core.Areas.Admin.Controllers
                 }
 
                 public IActionResult Index() => View(_roleManager.Roles);
+
+                public IActionResult Create() => View();
+
+                [HttpPost]
+                public async Task<IActionResult> Create([MinLength(2), Required] string name)
+                {
+                        if (ModelState.IsValid)
+                        {
+                                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
+
+                                if (result.Succeeded)
+                                {
+                                        return RedirectToAction("Index");
+                                }
+                                else
+                                {
+                                        foreach (IdentityError error in result.Errors)
+                                        {
+                                                ModelState.AddModelError("", error.Description);
+                                        }
+                                }
+                        }
+
+                        return View();
+                }
         }
 }
